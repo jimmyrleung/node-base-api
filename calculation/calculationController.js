@@ -9,7 +9,7 @@ module.exports = {
     },
 
     add: function (req, res) {
-        calculationDAO.add(new Calculation(req.body.hourlyWage, req.body.workedHours))
+        calculationDAO.add(new Calculation(req.body._hourlyWage, req.body._workedHours))
             .then(calculationId => res.status(200).json({ created: calculationId }))
             .catch(error => res.status(500).json());
     },

@@ -20,7 +20,7 @@ module.exports = {
         let errors = author.validate();
 
         if (errors.length > 0) {
-            return Promise.reject(errors);
+            return Promise.reject({ errorList: errors, validationErrors: true });
         };
 
         author.id = this.nextId;

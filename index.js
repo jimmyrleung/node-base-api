@@ -2,6 +2,7 @@ var app = require('express')();
 var bodyParser = require('body-parser');
 var authorController = require('./author/authorController');
 var bookController = require('./book/bookController');
+var photoController = require('./photos/photoController');
 var calculationController = require('./calculation/calculationController');
 
 app.use(bodyParser.json());
@@ -24,11 +25,18 @@ app.route('/api/calculations')
 	.get(calculationController.getAll)
 	.post(calculationController.add);
 
+app.route('/api/photos')
+	.get(photoController.getAll)
+	.post(photoController.add);
+
 app.route('/api/authors/:id')
 	.get(authorController.getById);
 
 app.route('/api/books/:id')
 	.get(bookController.getById);
+
+app.route('/api/photos/:id')
+	.get(photoController.getById);
 
 app.route('/api/calculations/:id')
 	.get(calculationController.getById);

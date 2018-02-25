@@ -1,10 +1,8 @@
-var app = require('express')();
-var bodyParser = require('body-parser');
-var authorController = require('./author/authorController');
-var bookController = require('./book/bookController');
-var photoController = require('./photo/photoController');
-var calculationController = require('./calculation/calculationController');
-var authenticationController = require('./authentication/authenticationController');
+const app = require('express')();
+const bodyParser = require('body-parser');
+const routeLoader = require("./routes/routeLoader");
+
+const authorization = require("./middlewares/authorization");
 
 // Add any payload to req.body
 app.use(bodyParser.json());
@@ -13,45 +11,25 @@ if (!process.env.JWT_SECRET_KEY) {
 	throw new Error("JWT Secret Key must set as an environment variable.")
 }
 
-// Cors
+// Cors middleware
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 	next();
 });
 
-// Routes
-// TODO: Create route files because this small api is becoming a monster '-'
-app.route('/api/authors')
-	.get(authorController.getAll)
-	.post(authorController.add);
+// Options request handler middleware
+app.use(function (req, res, next) {
+	// If it's a browser "OPTIONS" request, return status code 200 (server alive)
+	return (req.method === "OPTIONS") ? res.status(200).json() : next();
+});
 
-app.route('/api/books')
-	.get(bookController.getAllWithAuthors)
-	.post(bookController.add);
+// loadUserInfo middleware
+app.use("/*", authorization.loadUserInfo);
 
-app.route('/api/calculations')
-	.get(calculationController.getAll)
-	.post(calculationController.add);
+// Load routes into express
+routeLoader.load(app);
 
-app.route('/api/photos')
-	.get(photoController.getAll)
-	.post(photoController.add);
-
-app.route('/api/authors/:id')
-	.get(authorController.getById);
-
-app.route('/api/books/:id')
-	.get(bookController.getById);
-
-app.route('/api/photos/:id')
-	.get(photoController.getById);
-
-app.route('/api/calculations/:id')
-	.get(calculationController.getById);
-
-app.route('/api/login')
-	.post(authenticationController.login);
 
 app.listen(3002, function () {
 	console.log("Server listening on port 3002...");

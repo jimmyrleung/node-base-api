@@ -1,5 +1,5 @@
-let jwt = require('../helpers/jwt-manager');
-let userDAO = require('../user/userDAO');
+const jwt = require('../helpers/jwt-manager');
+const userDAO = require('../user/userDAO');
 
 module.exports = {
     login: function (username, password) {

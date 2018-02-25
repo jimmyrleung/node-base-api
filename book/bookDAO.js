@@ -1,5 +1,5 @@
-let Book = require('./Book');
-let authorDAO = require('../author/AuthorDAO');
+const Book = require('./Book');
+const authorDAO = require('../author/AuthorDAO');
 
 module.exports = {
     nextId: 4,

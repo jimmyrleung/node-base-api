@@ -1,4 +1,4 @@
-let authenticationServices = require('./authenticationServices');
+const authenticationServices = require('./authenticationServices');
 
 module.exports = {
     login: function (req, res) {

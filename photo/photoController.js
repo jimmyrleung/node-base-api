@@ -1,9 +1,15 @@
-let photoDAO = require('./photoDAO');
-let Photo = require('./Photo');
+const photoDAO = require('./photoDAO');
+const Photo = require('./Photo');
 
 module.exports = {
-    getAll: function (req, res) {
-        photoDAO.getAll()
+    getUserTimeline: function (req, res) {
+        photoDAO.getUserTimeline(req.user.username)
+            .then(photos => res.status(200).json(photos))
+            .catch(errors => res.status(500).json({ errors: errors }));
+    },
+
+    getAllByUsername: function (req, res) {
+        photoDAO.getAllByUsername(req.params.username)
             .then(photos => res.status(200).json(photos))
             .catch(errors => res.status(500).json({ errors: errors }));
     },

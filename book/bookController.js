@@ -1,5 +1,5 @@
-let bookDAO = require('./bookDAO');
-let Book = require('./Book');
+const bookDAO = require('./bookDAO');
+const Book = require('./Book');
 
 module.exports = {
     getAllWithAuthors: function (req, res) {

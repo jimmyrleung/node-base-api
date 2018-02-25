@@ -1,5 +1,5 @@
-let calculationDAO = require('./calculationDAO');
-let Calculation = require('./Calculation');
+const calculationDAO = require('./calculationDAO');
+const Calculation = require('./Calculation');
 
 module.exports = {
     getAll: function (req, res) {

@@ -1,4 +1,4 @@
-let Photo = require('./Photo');
+const Photo = require('./Photo');
 
 module.exports = {
     nextId: 4,
@@ -14,6 +14,14 @@ module.exports = {
 
     getById: function (id) {
         return Promise.resolve(this.photos.find(photo => photo.id === parseInt(id)));
+    },
+
+    getUserTimeline: function (username) {
+        return Promise.resolve(this.photos.filter(photo => photo.username !== username));
+    },
+
+    getAllByUsername: function (username) {
+        return Promise.resolve(this.photos.filter(photo => photo.username === username));
     },
 
     add: function (photo) {

@@ -1,4 +1,4 @@
-let Author = require('./Author');
+const Author = require('./Author');
 
 module.exports = {
     nextId: 4,

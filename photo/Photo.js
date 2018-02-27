@@ -6,5 +6,6 @@ module.exports = class Photo {
         this.username = username;
         this.date = date.toLocaleString();
         this.likers = likers;
+        this.isLiked = null;
     }
 }

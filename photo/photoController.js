@@ -27,5 +27,19 @@ module.exports = {
         photoDAO.getById(req.params.id)
             .then(photo => res.status(200).json(photo))
             .catch(errors => res.status(500).json({ errors: errors }));
+    },
+
+    getLikers: function (req, res) {
+        photoDAO.getLikersById(req.params.id)
+            .then(likers => {
+                res.status(200).json(likers)
+            })
+            .catch(errors => res.status(500).json({ errors: errors }));
+    },
+
+    like: function (req, res) {
+        photoDAO.toggleLike(req.params.id, req.user)
+            .then(photoIsLiked => res.status(200).json(photoIsLiked))
+            .catch(errors => res.status(500).json({ errors: errors }));
     }
 };

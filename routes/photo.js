@@ -11,9 +11,11 @@ module.exports = function (express) {
     express.route('/api/photos/:id')
         .get(photoController.getById);
 
-    express.route('/api/photos/:id/like')
-        .post(photoController.like);
-
-    express.route('/api/photos/:id/likers')
+    express.route('/api/photos/:id/likes')
+        .post(photoController.like)
         .get(photoController.getLikers);
+
+    express.route('/api/photos/:id/comments')
+        .post(photoController.addComment)
+        .get(photoController.getComments);
 }

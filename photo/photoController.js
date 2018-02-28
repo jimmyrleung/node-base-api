@@ -3,7 +3,7 @@ const Photo = require('./Photo');
 
 module.exports = {
     getUserTimeline: function (req, res) {
-        photoDAO.getUserTimeline(req.user.username)
+        photoDAO.getUserTimeline(req.user.username, req.query.p || null)
             .then(photos => res.status(200).json(photos))
             .catch(errors => res.status(500).json({ errors: errors }));
     },
@@ -40,6 +40,20 @@ module.exports = {
     like: function (req, res) {
         photoDAO.toggleLike(req.params.id, req.user)
             .then(photoIsLiked => res.status(200).json(photoIsLiked))
+            .catch(errors => res.status(500).json({ errors: errors }));
+    },
+
+    getComments: function (req, res) {
+        photoDAO.getComments(req.params.id)
+            .then(comments => {
+                res.status(200).json(comments)
+            })
+            .catch(errors => res.status(500).json({ errors: errors }));
+    },
+
+    addComment: function (req, res) {
+        photoDAO.addComment(req.params.id, req.user, req.body.comment)
+            .then(comments => res.status(200).json(comments))
             .catch(errors => res.status(500).json({ errors: errors }));
     }
 };

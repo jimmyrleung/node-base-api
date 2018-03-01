@@ -15,7 +15,7 @@ module.exports = {
                     req.user = decoded;
                     next();
                 })
-                .catch(error => res.status(401).json(err));
+                .catch(error => res.status(401).json(error));
         }
     }
 }

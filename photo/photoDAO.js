@@ -68,7 +68,7 @@ module.exports = {
 
         photo.isLiked = photo.likers.includes(user.username)
 
-        return Promise.resolve({ isLiked: photo.isLiked });
+        return Promise.resolve({ isLiked: photo.isLiked, likers: photo.likers });
     },
 
     // Comments

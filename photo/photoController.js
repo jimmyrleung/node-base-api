@@ -39,7 +39,7 @@ module.exports = {
 
     like: function (req, res) {
         photoDAO.toggleLike(req.params.id, req.user)
-            .then(photoIsLiked => res.status(200).json(photoIsLiked))
+            .then(photoInfo => res.status(200).json(photoInfo))
             .catch(errors => res.status(500).json({ errors: errors }));
     },
 
